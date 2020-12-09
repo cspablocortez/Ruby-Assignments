@@ -21,9 +21,6 @@ def caesar_cipher(string, shift)
   return ciphered_text
 end
 
-# Get index of capital letter
-# Turn that index to upcase
-
 puts caesar_cipher("What a string!", 5)
 puts caesar_cipher("zoo", 1)
 # => "Bmfy f xywnsl!"
