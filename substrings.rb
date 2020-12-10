@@ -7,11 +7,9 @@ dictionary = ["below", "down", "go", "going", "horn", "how", "howdy", "it", "i",
 def substrings(word, array)
   results = Hash.new
   array.each do |substring|
-    if word.include?(substring)
-      results[substring] = word.scan(substring).length
-    end
+      results[substring] = word.scan(substring).length if word.downcase.include?(substring)
   end
-  return results
+  results
 end
 
 puts substrings("below", dictionary)
