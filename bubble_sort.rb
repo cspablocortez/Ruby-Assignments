@@ -2,7 +2,8 @@
 # Author: Pablo Cortez
 # Date: 16 December 2020
 
-array = [4, 3, 78, 2, 0, 2]
+array_1 = [4, 3, 78, 2, 0, 2]
+array_2 = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
 def bubble_sort(array)
   array.length.times do
@@ -19,5 +20,8 @@ def bubble_sort(array)
   array
 end
 
-p bubble_sort(array) 
+p bubble_sort(array_1) 
 # => [0, 2, 2, 3, 4, 78]
+
+p bubble_sort(array_2) 
+# => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
