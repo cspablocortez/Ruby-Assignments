@@ -9,11 +9,7 @@ def bubble_sort(array)
   array.length.times do
     array.each_index do |i|
       unless i == array.length - 1
-        if array[i] > array[i+1] 
-          temp = array[i]
-          array[i] = array[i+1]
-          array[i+1] = temp
-        end
+        array[i], array[i+1] = array[i+1], array[i] if array[i] > array[i+1] 
       end
     end
   end

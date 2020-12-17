@@ -12,5 +12,5 @@ def substrings(word, array)
   results
 end
 
-puts substrings("below", dictionary)
+p substrings("below", dictionary)
 # => { "below" => 1, "low" => 1 }
