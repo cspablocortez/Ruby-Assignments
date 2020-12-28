@@ -51,7 +51,6 @@ class Player
   def move
     print "#{@name}'s turn: "
     cell = gets.chomp
-    # return a hash with player's symbol and their choice
     return {
       symbol: @symbol,
       cell: cell
@@ -65,5 +64,10 @@ p1 = Player.new
 p2 = Player.new
 game.show_instructions
 
-game.update_board(p1.move)
-game.update_board(p2.move)
+until game.over do
+  game.update_board(p1.move)
+  game.update_board(p2.move)
+end
+
+# Right now the until loop is infinite.
+# TODO: Add a Game#status_check method
