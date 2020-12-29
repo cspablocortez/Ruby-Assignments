@@ -25,18 +25,15 @@ class Game
     puts board
   end
 
-  def update_board(player_move) # TODO: Fix choosing already chosen location
+  def update_board(player_move) 
     symbol = player_move[:symbol]
     cell   = player_move[:cell]
     index  = self.board.index(cell) 
-    self.board[index] = symbol 
+    self.board[index] = symbol if self.board.include? cell
     puts board
   end
 
   def check_status
-    puts "Game#check_status method call:"
-    puts "  Game over status: #{self.over}"
-
     # check for top row
     if board[7].eql?(board[11]) && board[11].eql?(board[15]) && board[7].eql?(board[15])
       self.over = true
@@ -57,6 +54,7 @@ end
 
 class Player
   attr_reader :name
+  @@slots_used = []
   @@count = 0
   def initialize
     @@count += 1
@@ -66,17 +64,21 @@ class Player
     puts "#{@name}, you will play as '#{@symbol}'\n\n"
   end
 
-  def move # TODO: Can't choose previously chosen spot
+  def move # TODO: Handle bad input.
     print "#{@name}'s turn: "
     cell = gets.chomp
-    if cell.to_i > 0 && cell.to_i < 10
-      return {
-        symbol: @symbol,
-        cell: cell
-      }
-    else
-      puts "Check your input and try again."
+
+    if @@slots_used.include?(cell) 
+      puts "Please check your input and try again."
       self.move
+    else
+      @@slots_used.push(cell)
+      if cell.to_i > 0 && cell.to_i < 10 
+        return {
+          symbol: @symbol,
+          cell: cell
+        }
+      end
     end
   end
 end
