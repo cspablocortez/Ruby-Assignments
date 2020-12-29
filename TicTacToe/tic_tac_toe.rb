@@ -68,7 +68,7 @@ class Player
     print "#{@name}'s turn: "
     cell = gets.chomp
 
-    if @@slots_used.include?(cell) || "0123456789".include?(cell) == false || cell.to_i.between?(0, 10) == false
+    if @@slots_used.include?(cell) || !"0123456789".include?(cell) || !cell.to_i.between?(0, 9)
       puts "Please check your input and try again."
       self.move
     else
