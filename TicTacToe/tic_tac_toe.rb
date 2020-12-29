@@ -1,5 +1,5 @@
 class Game
-  attr_accessor :over, :board
+  attr_accessor :over, :board, :cell_indices
   def initialize
     self.over = false
     puts %(
@@ -12,6 +12,9 @@ class Game
     ----+---+----
       7 | 8 | 9
   )
+    self.cell_indices = [   7, 11, 15, 
+                           41, 45, 49, 
+                           75, 79, 83]
   end
 
   def show_instructions
@@ -22,18 +25,34 @@ class Game
     puts board
   end
 
-  def update_board(player_move)
+  def update_board(player_move) # TODO: Fix choosing already chosen location
     symbol = player_move[:symbol]
     cell   = player_move[:cell]
-    index  = self.board.index(cell)
-    self.board[index] = symbol if self.board.include? cell
+    index  = self.board.index(cell) 
+    self.board[index] = symbol 
     puts board
   end
 
-  def show_end_message
-    puts "GAME OVER."
+  def check_status
+    puts "Game#check_status method call:"
+
+    puts "Game over status: #{self.over}"
+
+    # check for top row
+    if board[7].eql?(board[11]) && board[11].eql?(board[15]) && board[7].eql?(board[15])
+      self.over = true
+      self.show_winner_message
+    end
+
   end
 
+  private
+  def show_winner_message
+    puts "WE HAVE A WINNER!" # TODO: How to detect who wins?
+  end
+
+  def show_draw_message
+  end
   
 end
 
@@ -48,13 +67,18 @@ class Player
     puts "#{@name}, you will play as '#{@symbol}'\n\n"
   end
 
-  def move
+  def move # TODO: Can't choose previously chosen spot, or replace opponent's move.
     print "#{@name}'s turn: "
     cell = gets.chomp
-    return {
-      symbol: @symbol,
-      cell: cell
-    }
+    if cell.to_i > 0 && cell.to_i < 10
+      return {
+        symbol: @symbol,
+        cell: cell
+      }
+    else
+      puts "Check your input and try again."
+      self.move
+    end
   end
 end
 
@@ -66,8 +90,11 @@ game.show_instructions
 
 until game.over do
   game.update_board(p1.move)
-  game.update_board(p2.move)
+  game.check_status
+  unless game.over 
+    game.update_board(p2.move)
+    game.check_status
+  end
 end
 
-# Right now the until loop is infinite.
-# TODO: Add a Game#status_check method
+
