@@ -58,8 +58,7 @@ class Player
   @@count = 0
   def initialize
     @@count += 1
-    print "Player #{@@count}, enter your name: " # TODO: Limit possible name input
-    @name = gets.chomp.capitalize
+    @name = self.get_user_name
     @symbol = @@count == 1 ? 'X' : 'O'
     puts "#{@name}, you will play as '#{@symbol}'\n\n"
   end
@@ -74,6 +73,19 @@ class Player
     else
       @@slots_used.push(cell)
       return { symbol: @symbol, cell: cell } 
+    end
+  end
+
+  private
+
+  def get_user_name
+    print "Player #{@@count}, enter your name: " 
+    name = gets.chomp
+    if name.length == 0 || name.strip.empty?
+      puts "Name cannot be empty. Please try again."
+      self.get_user_name
+    else
+      name.capitalize
     end
   end
 
