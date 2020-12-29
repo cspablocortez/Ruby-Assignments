@@ -35,8 +35,7 @@ class Game
 
   def check_status
     puts "Game#check_status method call:"
-
-    puts "Game over status: #{self.over}"
+    puts "  Game over status: #{self.over}"
 
     # check for top row
     if board[7].eql?(board[11]) && board[11].eql?(board[15]) && board[7].eql?(board[15])
