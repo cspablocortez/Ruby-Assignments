@@ -44,7 +44,7 @@ class Game
 
   private
   def show_winner_message
-    puts "WE HAVE A WINNER!" # TODO: How to detect who wins?
+    puts "WE HAVE A WINNER!" # TODO: Detect and congratulate winner.
   end
 
   def show_draw_message
@@ -58,17 +58,19 @@ class Player
   @@count = 0
   def initialize
     @@count += 1
-    print "Player #{@@count}, enter your name: " 
+    print "Player #{@@count}, enter your name: " # TODO: Limit possible name input
     @name = gets.chomp.capitalize
     @symbol = @@count == 1 ? 'X' : 'O'
     puts "#{@name}, you will play as '#{@symbol}'\n\n"
   end
 
-  def move # TODO: Handle bad input.
+  def move 
     print "#{@name}'s turn: "
     cell = gets.chomp
 
-    if @@slots_used.include?(cell) 
+    puts cell
+
+    if @@slots_used.include?(cell) || "0123456789".include?(cell) == false
       puts "Please check your input and try again."
       self.move
     else
