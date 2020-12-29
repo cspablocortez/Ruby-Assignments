@@ -67,7 +67,7 @@ class Player
     puts "#{@name}, you will play as '#{@symbol}'\n\n"
   end
 
-  def move # TODO: Can't choose previously chosen spot, or replace opponent's move.
+  def move # TODO: Can't choose previously chosen spot
     print "#{@name}'s turn: "
     cell = gets.chomp
     if cell.to_i > 0 && cell.to_i < 10
