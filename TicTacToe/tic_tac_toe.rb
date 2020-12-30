@@ -34,16 +34,14 @@ class Game
     puts board
   end
 
-  def check_status
-    puts 'Checking status...'
-
+  def check_status # TODO: Rename method
     rows = []
     cols = []
     diagonals = []
 
     cell_values = [[self.board[7], self.board[11], self.board[15]], 
                    [self.board[41], self.board[45], self.board[49]], 
-                   [self.board[75], self.board[79], self.board[83]]]
+                   [self.board[75], self.board[79], self.board[83]]]  # TODO: Use self.cell_indices
 
     
 
