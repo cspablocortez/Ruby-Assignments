@@ -19,5 +19,4 @@ def stock_picker(stocks)
   [min_index, max_index]
 end
 
-p stock_picker(stocks)
-# => [1,4]
+p stock_picker(stocks) # => [1,4]
