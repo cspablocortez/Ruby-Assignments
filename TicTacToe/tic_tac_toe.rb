@@ -13,9 +13,9 @@ class Game
     ----+---+----
       7 | 8 | 9
   )
-    self.cell_indices = [ 7, 11, 15,
-                         41, 45, 49,
-                         75, 79, 83]
+    self.cell_indices = [ [7, 11, 15],
+                         [41, 45, 49],
+                         [75, 79, 83]]
   end
 
   def show_instructions
@@ -35,11 +35,41 @@ class Game
   end
 
   def check_status
-    # check for top row
-    if board[7].eql?(board[11]) && board[11].eql?(board[15]) && board[7].eql?(board[15])
-      self.over = true
-      show_winner_message
+    puts 'Checking status...'
+
+    rows = []
+    cols = []
+    diagonals = []
+
+    cell_values = [[self.board[7], self.board[11], self.board[15]], 
+                   [self.board[41], self.board[45], self.board[49]], 
+                   [self.board[75], self.board[79], self.board[83]]]
+
+    
+
+    # There should be 3 horizontal, 3 vertical, 2 diagonal ways to win.
+
+    # Setup
+    for i in 0..2
+      rows[i] = cell_values[i]
     end
+
+    # TODO: Optimize with a loop
+    cols[0] = [cell_values[0][0], cell_values[1][0], cell_values[2][0]]
+    cols[1] = [cell_values[0][1], cell_values[1][1], cell_values[2][1]]
+    cols[2] = [cell_values[0][2], cell_values[1][2], cell_values[2][2]]
+
+
+    # Vertical and Horizontal 
+    for i in 0..2
+      if rows[i].uniq.length == 1 || cols[i].uniq.length == 1
+        self.over = true
+        show_winner_message
+      end
+    end
+
+    # TODO: Add diagonal checks
+
   end
 
   private
@@ -83,7 +113,7 @@ class Player
     name = gets.chomp
     if name.length.zero? || name.strip.empty?
       puts 'Name cannot be empty. Please try again.'
-      get_user_name
+      set_user_name
     else
       name.capitalize
     end
