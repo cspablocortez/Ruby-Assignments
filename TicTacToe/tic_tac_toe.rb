@@ -34,23 +34,20 @@ class Game
     puts board
   end
 
-  def check_status # TODO: Rename method + Add a draw + Check diagonals
+  def check_status # TODO: Rename method + Add a draw 
     rows = []
-    cols = []
+    cols = [[], [], []]
     diagonals = []
     cell_values = [[self.board[7], self.board[11], self.board[15]], 
                    [self.board[41], self.board[45], self.board[49]], 
                    [self.board[75], self.board[79], self.board[83]]]  # TODO: Use self.cell_indices
 
-    # Setup
     for i in 0..2
       rows[i] = cell_values[i]
+      for j in 0..2
+        cols[i].push(cell_values[j][i])
+      end
     end
-
-    # TODO: Optimize with a loop
-    cols[0] = [cell_values[0][0], cell_values[1][0], cell_values[2][0]]  # saludo desde la version 'populate-cols-array'
-    cols[1] = [cell_values[0][1], cell_values[1][1], cell_values[2][1]]
-    cols[2] = [cell_values[0][2], cell_values[1][2], cell_values[2][2]]
 
     # Vertical and Horizontal 
     for i in 0..2
