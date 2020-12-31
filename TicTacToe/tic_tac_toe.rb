@@ -34,18 +34,13 @@ class Game
     puts board
   end
 
-  def check_status # TODO: Rename method
+  def check_status # TODO: Rename method + Add a draw + Check diagonals
     rows = []
     cols = []
     diagonals = []
-
     cell_values = [[self.board[7], self.board[11], self.board[15]], 
                    [self.board[41], self.board[45], self.board[49]], 
                    [self.board[75], self.board[79], self.board[83]]]  # TODO: Use self.cell_indices
-
-    
-
-    # There should be 3 horizontal, 3 vertical, 2 diagonal ways to win.
 
     # Setup
     for i in 0..2
@@ -57,7 +52,6 @@ class Game
     cols[1] = [cell_values[0][1], cell_values[1][1], cell_values[2][1]]
     cols[2] = [cell_values[0][2], cell_values[1][2], cell_values[2][2]]
 
-
     # Vertical and Horizontal 
     for i in 0..2
       if rows[i].uniq.length == 1 || cols[i].uniq.length == 1
@@ -66,8 +60,16 @@ class Game
       end
     end
 
-    # TODO: Add diagonal checks
+    # Diagonals
+    if cell_values[0][0] == cell_values[1][1] && cell_values[1][1] == cell_values[2][2]  
+      self.over = true
+      show_winner_message
+    end
 
+    if cell_values[0][2] == cell_values[1][1] && cell_values[1][1] == cell_values[2][0]  
+      self.over = true
+      show_winner_message
+    end
   end
 
   private
