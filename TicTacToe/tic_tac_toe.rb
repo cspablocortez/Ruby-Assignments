@@ -48,7 +48,7 @@ class Game
     end
 
     # TODO: Optimize with a loop
-    cols[0] = [cell_values[0][0], cell_values[1][0], cell_values[2][0]]
+    cols[0] = [cell_values[0][0], cell_values[1][0], cell_values[2][0]]  # saludo desde la version 'populate-cols-array'
     cols[1] = [cell_values[0][1], cell_values[1][1], cell_values[2][1]]
     cols[2] = [cell_values[0][2], cell_values[1][2], cell_values[2][2]]
 
