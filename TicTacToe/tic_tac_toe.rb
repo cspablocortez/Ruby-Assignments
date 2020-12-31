@@ -34,10 +34,32 @@ class Game
     puts board
   end
 
-  def check_status # TODO: Rename method + Add a draw 
+  def check_status # TODO: Rename method + add a draw
+    rows      = board_setup[:rows]
+    columns   = board_setup[:cols]
+    diagonals = board_setup[:diagonals]
+
+    for i in 0..2
+      if rows[i].uniq.length == 1 || columns[i].uniq.length == 1
+        self.over = true
+        show_winner_message
+      end
+    end
+
+    for i in 0..1
+      if diagonals[i].uniq.length == 1
+        self.over = true
+        show_winner_message
+      end
+    end
+  end
+
+  private
+
+  def board_setup
     rows = []
     cols = [[], [], []]
-    diagonals = []
+    diagonals = [[], []]
     cell_values = [[self.board[7], self.board[11], self.board[15]], 
                    [self.board[41], self.board[45], self.board[49]], 
                    [self.board[75], self.board[79], self.board[83]]]  # TODO: Use self.cell_indices
@@ -49,27 +71,14 @@ class Game
       end
     end
 
-    # Vertical and Horizontal 
-    for i in 0..2
-      if rows[i].uniq.length == 1 || cols[i].uniq.length == 1
-        self.over = true
-        show_winner_message
-      end
-    end
+    diagonals = [[cell_values[0][0], cell_values[1][1], cell_values[2][2]], [cell_values[0][2], cell_values[1][1], cell_values[2][0]]]
 
-    # Diagonals
-    if cell_values[0][0] == cell_values[1][1] && cell_values[1][1] == cell_values[2][2]  
-      self.over = true
-      show_winner_message
-    end
-
-    if cell_values[0][2] == cell_values[1][1] && cell_values[1][1] == cell_values[2][0]  
-      self.over = true
-      show_winner_message
-    end
+    {
+      rows: rows,
+      cols: cols,
+      diagonals: diagonals
+    }
   end
-
-  private
 
   def show_winner_message
     puts 'WE HAVE A WINNER!' # TODO: Detect and congratulate winner.
