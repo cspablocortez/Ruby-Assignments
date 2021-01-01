@@ -1,8 +1,9 @@
 class Game
-  attr_accessor :over, :board, :cell_indices
+  attr_accessor :over, :board, :move_count
 
   def initialize
     self.over = false
+    self.move_count = 0
     puts %(
     +++ WELCOME TO RUBY TIC-TAC-TOE +++
     )
@@ -13,9 +14,6 @@ class Game
     ----+---+----
       7 | 8 | 9
   )
-    self.cell_indices = [ [7, 11, 15],
-                         [41, 45, 49],
-                         [75, 79, 83]]
   end
 
   def show_instructions
@@ -34,7 +32,8 @@ class Game
     puts board
   end
 
-  def check_status # TODO: Rename method + add a draw
+  def check_status 
+    self.move_count += 1
     rows      = board_setup[:rows]
     columns   = board_setup[:cols]
     diagonals = board_setup[:diagonals]
@@ -52,6 +51,11 @@ class Game
         show_winner_message
       end
     end
+    
+    if self.move_count == 9 
+      self.over = true
+      show_draw_message
+    end
   end
 
   private
@@ -62,7 +66,7 @@ class Game
     diagonals = [[], []]
     cell_values = [[self.board[7], self.board[11], self.board[15]], 
                    [self.board[41], self.board[45], self.board[49]], 
-                   [self.board[75], self.board[79], self.board[83]]]  # TODO: Use self.cell_indices
+                   [self.board[75], self.board[79], self.board[83]]]  
 
     for i in 0..2
       rows[i] = cell_values[i]
@@ -84,7 +88,9 @@ class Game
     puts 'WE HAVE A WINNER!' # TODO: Detect and congratulate winner.
   end
 
-  def show_draw_message; end
+  def show_draw_message
+    puts 'IT\'S A DRAW' # TODO: Prompt for another game?
+  end
 end
 
 class Player
