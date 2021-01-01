@@ -2,6 +2,7 @@ class Game
   attr_accessor :over, :board, :move_count
 
   def initialize
+    system "clear"
     self.over = false
     self.move_count = 0
     puts %(
@@ -25,6 +26,10 @@ class Game
   end
 
   def update_board(player_move) 
+    system "clear"
+    puts %(
+      +++ RUBY TIC-TAC-TOE +++
+    )
     symbol = player_move[:symbol]
     cell   = player_move[:cell]
     index  = board.index(cell)
