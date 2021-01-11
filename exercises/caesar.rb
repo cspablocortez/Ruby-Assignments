@@ -3,8 +3,8 @@
 # Date: 8 December 2020
 
 def caesar_cipher(string, shift)
-  symbols = "abcdefghijklmnopqrstuvwxyz"
-  ciphered_text = ""
+  symbols = 'abcdefghijklmnopqrstuvwxyz'
+  ciphered_text = ''
   string.each_char do |char|
     if char.match(/[A-Z]/) 
       new_index = (symbols.index(char.downcase) + shift) % symbols.length
@@ -21,6 +21,6 @@ def caesar_cipher(string, shift)
   return ciphered_text
 end
 
-puts caesar_cipher("What a string!", 5)
-puts caesar_cipher("zoo", 1)
+puts caesar_cipher('What a string!', 5)
+puts caesar_cipher('zoo', 1)
 # => "Bmfy f xywnsl!"
